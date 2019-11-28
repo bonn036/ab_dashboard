@@ -1,26 +1,35 @@
 import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getAud, setAud, removeAud, getAuthToken, setAuthToken, removeAuthToken, getGroup, setGroup, removeGroup} from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const state = {
-  token: getToken(),
+  aud: getAud(),
+  auth: getAuthToken(),
+  group: getGroup(),
   name: '',
   avatar: '',
-  roles: []
+  mobile: '',
+  // roles: []
 }
 
 const mutations = {
-  SET_TOKEN: (state, token) => {
-    state.token = token
+  SET_AUD: (state, aud) => {
+    state.aud = aud
+  },
+  SET_AUTH: (state, auth) => {
+    state.auth = auth
+  },
+  SET_GROUP: (state, group) => {
+    state.group = group
   },
   SET_NAME: (state, name) => {
     state.name = name
   },
+  SET_MOBILE: (state, mobile) => {
+    state.mobile = mobile
+  },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
-  },
-  SET_ROLES: (state, roles) => {
-    state.roles = roles
   }
 }
 
@@ -31,8 +40,12 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+        commit('SET_AUD', data.aud)
+        setAud(data.aud)
+        commit('SET_AUTH', data.auth)
+        setAuthToken(data.auth)
+        commit('SET_GROUP', data.group)
+        setGroup(data.group)
         resolve()
       }).catch(error => {
         reject(error)
@@ -43,23 +56,23 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getInfo().then(response => {
         const { data } = response
 
         if (!data) {
           reject('Verification failed, please Login again.')
         }
 
-        const { roles, name, avatar } = data
+        const { name, avatar, mobile } = data
 
         // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
+        // if (!roles || roles.length <= 0) {
+        //   reject('getInfo: roles must be a non-null array!')
+        // }
 
-        commit('SET_ROLES', roles)
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
+        commit('SET_MOBILE', mobile)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -70,10 +83,15 @@ const actions = {
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        commit('SET_TOKEN', '')
-        commit('SET_ROLES', [])
-        removeToken()
+      logout().then(() => {
+        commit('SET_AUD', '')
+        commit('SET_AUTH', '')
+        commit('SET_GROUP', '')
+        // commit('SET_ROLES', [])
+        removeAud()
+        removeAuthToken()
+        removeGroup()
+
         resetRouter()
         resolve()
       }).catch(error => {
@@ -85,9 +103,12 @@ const actions = {
   // remove token
   resetToken({ commit }) {
     return new Promise(resolve => {
-      commit('SET_TOKEN', '')
-      commit('SET_ROLES', [])
-      removeToken()
+      commit('SET_AUD', '')
+      commit('SET_AUTH', '')
+      commit('SET_GROUP', '')
+      removeAud()
+      removeAuthToken()
+      removeGroup()
       resolve()
     })
   }

@@ -1,15 +1,44 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'vue_admin_template_token'
+const AudKey = 'aud'
+const AuthKey = 'auth'
+const GroupKey = 'group'
 
-export function getToken() {
-  return Cookies.get(TokenKey)
+//Audience
+export function getAud() {
+  return Cookies.get(AudKey)
 }
 
-export function setToken(token) {
-  return Cookies.set(TokenKey, token)
+export function setAud(aud) {
+  return Cookies.set(AudKey, aud)
 }
 
-export function removeToken() {
-  return Cookies.remove(TokenKey)
+export function removeAud() {
+  return Cookies.remove(AudKey)
+}
+
+//AuthToken
+export function getAuthToken() {
+  return Cookies.get(AuthKey)
+}
+
+export function setAuthToken(token) {
+  return Cookies.set(AuthKey, token)
+}
+
+export function removeAuthToken() {
+  return Cookies.remove(AuthKey)
+}
+
+//Group
+export function getGroup() {
+  return Cookies.get(GroupKey)
+}
+
+export function setGroup(group) {
+  return Cookies.set(GroupKey, group)
+}
+
+export function removeGroup() {
+  return Cookies.remove(GroupKey)
 }
