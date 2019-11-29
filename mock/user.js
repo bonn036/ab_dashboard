@@ -1,25 +1,31 @@
 
-const tokens = {
+const resps = {
   admin: {
-    token: 'admin-token'
+    aud: 'admin',
+    auth: 'admin-token',
+    group: 'admin'
   },
   editor: {
-    token: 'editor-token'
+    aud: 'editor',
+    auth: 'editor-token',
+    group: 'editor'
   }
 }
 
 const users = {
   'admin-token': {
-    roles: ['admin'],
+    group: ['admin'],
     introduction: 'I am a super administrator',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
+    name: 'Super Admin',
+    mobile: '13513613813'
   },
   'editor-token': {
-    roles: ['editor'],
+    group: ['editor'],
     introduction: 'I am an editor',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
+    name: 'Normal Editor',
+    mobile: '13313513163'
   }
 }
 
@@ -30,10 +36,10 @@ export default [
     type: 'post',
     response: config => {
       const { username } = config.body
-      const token = tokens[username]
+      const resp = resps[username]
 
       // mock error
-      if (!token) {
+      if (!resp) {
         return {
           code: 60204,
           message: 'Account and password are incorrect.'
@@ -42,7 +48,7 @@ export default [
 
       return {
         code: 20000,
-        data: token
+        data: resp
       }
     }
   },
@@ -52,8 +58,8 @@ export default [
     url: '/user/info\.*',
     type: 'get',
     response: config => {
-      const { token } = config.query
-      const info = users[token]
+      const { aud } = config.query
+      const info = users[aud]
 
       // mock error
       if (!info) {

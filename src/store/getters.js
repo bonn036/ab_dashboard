@@ -1,10 +1,11 @@
 const getters = {
   sidebar: state => state.app.sidebar,
   device: state => state.app.device,
-  token: state => state.user.token,
-  avatar: state => state.user.avatar,
+  aud: state => state.user.aud,
+  auth: state => state.user.auth,
+  group: state => state.user.group,
   name: state => state.user.name,
-  roles: state => state.user.roles,
+  avatar: state => state.user.avatar,
   permission_routes: state => state.permission.routes
 }
 export default getters
