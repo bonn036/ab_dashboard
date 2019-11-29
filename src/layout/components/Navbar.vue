@@ -53,8 +53,13 @@ export default {
     },
     async logout() {
       await this.$store.dispatch('user/logout')
-      location.href = "http://abhouse.xyz"
       // this.$router.push('/login?redirect=${this.$route.fullPath}')
+      this.$router.push('/homepage')
+    }
+  },
+  data() {
+    return {
+      avatar: require('@/assets/img/favicon.png')
     }
   }
 }

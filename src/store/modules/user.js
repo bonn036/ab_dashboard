@@ -42,7 +42,7 @@ const actions = {
         commit('SET_AUD', response.headers["audience"])
         setAud(response.headers["audience"])
         commit('SET_AUTH', response.headers["authorization"])
-        setAuthToken(response.headers["audiauthorizationence"])
+        setAuthToken(response.headers["authorization"])
         commit('SET_GROUP', response.headers["group"])
         setGroup(response.headers["group"])
         resolve()
@@ -56,24 +56,15 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo().then(response => {
-        console.log(response.data)
-        const { data } = response.data
-
-        if (!data) {
+        const { status, users } = response.data
+        if (!users || users.length == 0) {
           reject('Verification failed, please Login again.')
         }
-
-        // const { status, users } = data
-
-        // roles must be a non-empty array
-        // if (!roles || roles.length <= 0) {
-        //   reject('getInfo: roles must be a non-null array!')
-        // }
-
-        // commit('SET_NAME', name)
+        const { username, firstname, lastname, mobile, email } = users[0]
+        commit('SET_NAME', firstname)
         // commit('SET_AVATAR', avatar)
-        // commit('SET_MOBILE', mobile)
-        resolve(data)
+        commit('SET_MOBILE', mobile)
+        resolve(users)
       }).catch(error => {
         reject(error)
       })

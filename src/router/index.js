@@ -32,6 +32,11 @@ import Layout from '@/layout'
  */
 export const constantRoutes = [
   {
+    path: '/homepage',
+    beforeEnter() { location.href = 'http://abhouse.xyz' }
+  },
+
+  {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true

@@ -8,9 +8,10 @@ import getPageTitle from '@/utils/get-page-title'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login'] // no redirect whitelist
+const whiteList = ['/homepage', '/login'] // no redirect whitelist
 
-router.beforeEach(async(to, from, next) => {
+router.beforeEach(async (to, from, next) => {
+  console.log('beforeEach===========')
   // start progress bar
   NProgress.start()
 
@@ -34,6 +35,8 @@ router.beforeEach(async(to, from, next) => {
         next()
       } else {
         try {
+          await store.dispatch('user/getInfo')
+
           const accessRoutes = await store.dispatch('permission/generateRoutes', group)
           // dynamically add accessible routes
           router.addRoutes(accessRoutes)
@@ -53,9 +56,11 @@ router.beforeEach(async(to, from, next) => {
     /* has no auth info */
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
+      console.log(`no auth, redirect to ${ to.path }`)
       next()
     } else {
       // other pages that do not have permission to access are redirected to the login page.
+      console.log(`no auth, login redirect to ${ to.path }`)
       next(`/login?redirect=${to.path}`)
       NProgress.done()
     }
