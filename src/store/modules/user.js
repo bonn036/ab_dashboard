@@ -39,13 +39,12 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_AUD', data.aud)
-        setAud(data.aud)
-        commit('SET_AUTH', data.auth)
-        setAuthToken(data.auth)
-        commit('SET_GROUP', data.group)
-        setGroup(data.group)
+        commit('SET_AUD', response.headers["audience"])
+        setAud(response.headers["audience"])
+        commit('SET_AUTH', response.headers["authorization"])
+        setAuthToken(response.headers["audiauthorizationence"])
+        commit('SET_GROUP', response.headers["group"])
+        setGroup(response.headers["group"])
         resolve()
       }).catch(error => {
         reject(error)
@@ -57,22 +56,23 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo().then(response => {
-        const { data } = response
+        console.log(response.data)
+        const { data } = response.data
 
         if (!data) {
           reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar, mobile } = data
+        // const { status, users } = data
 
         // roles must be a non-empty array
         // if (!roles || roles.length <= 0) {
         //   reject('getInfo: roles must be a non-null array!')
         // }
 
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        commit('SET_MOBILE', mobile)
+        // commit('SET_NAME', name)
+        // commit('SET_AVATAR', avatar)
+        // commit('SET_MOBILE', mobile)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -100,8 +100,8 @@ const actions = {
     })
   },
 
-  // remove token
-  resetToken({ commit }) {
+  // remove auth info
+  resetAuth({ commit }) {
     return new Promise(resolve => {
       commit('SET_AUD', '')
       commit('SET_AUTH', '')
