@@ -31,7 +31,7 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [
-  { 
+  {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
@@ -60,7 +60,8 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    meta: { title: 'Example', icon: 'example'},
+    group: 1,
     children: [
       {
         path: 'table',
@@ -85,7 +86,7 @@ export const constantRoutes = [
         path: 'index',
         name: 'Form',
         component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        meta: { title: 'Form', icon: 'form'}
       }
     ]
   }
@@ -103,7 +104,8 @@ export const asyncRoutes = [
     name: 'Nested',
     meta: {
       title: 'Nested',
-      icon: 'nested'
+      icon: 'nested',
+      group: '1'
     },
     children: [
       {
@@ -116,7 +118,7 @@ export const asyncRoutes = [
             path: 'menu1-1',
             component: () => import('@/views/nested/menu1/menu1-1'),
             name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
+            meta: { title: 'Menu1-1'}
           },
           {
             path: 'menu1-2',

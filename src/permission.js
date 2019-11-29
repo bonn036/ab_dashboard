@@ -21,8 +21,6 @@ router.beforeEach(async(to, from, next) => {
   // const hasAud = getAud()
   // const hasAuth = getAuthToken()
   const group = getGroup()
-  console.log("beforeEach===================")
-  console.log("group1: " + group)
 
   if (group && group != "0") {
     if (to.path === '/login') {
@@ -32,7 +30,6 @@ router.beforeEach(async(to, from, next) => {
     } else {
       // determine whether the user has obtained his permission roles through getInfo
       const show = store.getters.show
-      console.log("show: " + show)
       if (show) {
         next()
       } else {
