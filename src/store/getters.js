@@ -1,6 +1,7 @@
 const getters = {
   sidebar: state => state.app.sidebar,
   device: state => state.app.device,
+  show: state => state.app.show,
   aud: state => state.user.aud,
   auth: state => state.user.auth,
   group: state => state.user.group,

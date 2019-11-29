@@ -21,7 +21,8 @@ router.beforeEach(async(to, from, next) => {
   // const hasAud = getAud()
   // const hasAuth = getAuthToken()
   const group = getGroup()
-  console.log("beforeEach group: " + group)
+  console.log("beforeEach===================")
+  console.log("group1: " + group)
 
   if (group && group != "0") {
     if (to.path === '/login') {
@@ -30,8 +31,9 @@ router.beforeEach(async(to, from, next) => {
       NProgress.done()
     } else {
       // determine whether the user has obtained his permission roles through getInfo
-      const group = store.getters.group
-      if (group) {
+      const show = store.getters.show
+      console.log("show: " + show)
+      if (show) {
         next()
       } else {
         try {
@@ -41,6 +43,7 @@ router.beforeEach(async(to, from, next) => {
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
+          store.dispatch('app/toggleShow', 1)
         } catch (error) {
           await store.dispatch('user/resetAuth')
           Message.error(error || 'Has Error')
