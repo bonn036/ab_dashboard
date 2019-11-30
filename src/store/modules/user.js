@@ -9,6 +9,9 @@ const state = {
   name: '',
   avatar: '',
   mobile: '',
+  email: '',
+  uid: '',
+  cid: '',
   // roles: []
 }
 
@@ -27,6 +30,15 @@ const mutations = {
   },
   SET_MOBILE: (state, mobile) => {
     state.mobile = mobile
+  },
+  SET_EMAIL: (state, email) => {
+    state.email = email
+  },
+  SET_UID: (state, uid) => {
+    state.uid = uid
+  },
+  SET_CID: (state, cid) => {
+    state.cid = cid
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
@@ -60,10 +72,13 @@ const actions = {
         if (!users || users.length == 0) {
           reject('Verification failed, please Login again.')
         }
-        const { username, firstname, lastname, mobile, email } = users[0]
-        commit('SET_NAME', firstname)
+        const { uid, username, mobile, email, cid } = users[0]
+        commit('SET_UID', uid)
+        commit('SET_NAME', username)
         // commit('SET_AVATAR', avatar)
         commit('SET_MOBILE', mobile)
+        commit('SET_EMAIL', email)
+        commit('SET_CID', cid)
         resolve(users)
       }).catch(error => {
         reject(error)

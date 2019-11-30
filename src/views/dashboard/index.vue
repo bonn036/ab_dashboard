@@ -1,9 +1,11 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">Hello {{ aud }}</div>
-    <div class="dashboard-text">name: {{ name }}</div>
+    <div class="dashboard-text">Hello {{ name }}</div>
+    <div class="dashboard-text">uid: {{ uid }}</div>
     <div class="dashboard-text">mobile: {{ mobile }}</div>
+    <div class="dashboard-text">email: {{ email }}</div>
     <div class="dashboard-text">group: {{ group }}</div>
+    <div class="dashboard-text">cid: {{ cid }}</div>
     <!-- <div class="dashboard-text">roles: <span v-for="role in roles" :key="role">{{ role }}</span></div> -->
   </div>
 </template>
@@ -15,10 +17,12 @@ export default {
   name: 'Dashboard',
   computed: {
     ...mapGetters([
-      'aud',
+      'uid',
       'name',
       'mobile',
-      'group'
+      'email',
+      'group',
+      'cid',
     ])
   }
 }
