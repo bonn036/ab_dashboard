@@ -1,31 +1,47 @@
 
-const resps = {
+const users = {
   admin: {
     aud: 'admin',
     auth: 'admin-token',
-    group: 'admin'
+    group: 1,
+    name: 'James',
+    mobile: '133333333',
+    cid: '101101011'
   },
-  editor: {
-    aud: 'editor',
-    auth: 'editor-token',
-    group: 'editor'
+  user: {
+    aud: 'user',
+    auth: 'user-token',
+    group: 0,
+    name: 'Cheng',
+    mobile: '133333333',
+    cid: '1011010112'
   }
 }
 
-const users = {
+const userInfo = {
   'admin-token': {
-    group: ['admin'],
-    introduction: 'I am a super administrator',
+    uid: 1000110,
+    username: 'james',
+    mobile: '13599898998',
+    email: '',
+    cid: '110101199810011011',
+    group: 1,
+    create_date: '2018-05-15',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin',
-    mobile: '13513613813'
+    status: 1,
+    uscc: '91110108MA01C5QM22',
   },
-  'editor-token': {
-    group: ['editor'],
-    introduction: 'I am an editor',
+  'user-token': {
+    uid: 1000111,
+    username: 'Cheng',
+    mobile: '1369100119',
+    email: '',
+    cid: '110102200108012008',
+    group: 0,
+    create_date: '2018-06-18',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor',
-    mobile: '13313513163'
+    status: 1,
+    uscc: '91110108MA01C5QM24',
   }
 }
 
@@ -34,55 +50,55 @@ export default [
   {
     url: '/user/login',
     type: 'post',
-    response: config => {
-      const { username } = config.body
-      const resp = resps[username]
-
+    response: (req, res) => {
+      const { username } = req.body
+      const user = users[username]
       // mock error
-      if (!resp) {
+      if (!user) {
         return {
-          code: 60204,
+          status: 400,
           message: 'Account and password are incorrect.'
         }
       }
-
+      res.header('audience', user['aud'])
+      res.header('authorization', user['auth'])
+      res.header('group', user['group'])
       return {
-        code: 20000,
-        data: resp
+        status: 200,
+        data: user
       }
     }
   },
-
   // get user info
   {
-    url: '/user/info\.*',
+    url: '/user/info',
     type: 'get',
-    response: config => {
-      const { aud } = config.query
-      const info = users[aud]
-
+    response: req => {
+      const auth = req.headers['authorization']
+      const info = userInfo[auth]
       // mock error
       if (!info) {
         return {
-          code: 50008,
-          message: 'Login failed, unable to get user details.'
+          status: 50008,
+          message: 'Login failed, unable to get user details. '
         }
       }
-
       return {
-        code: 20000,
+        status: 200,
         data: info
       }
     }
   },
-
   // user logout
   {
     url: '/user/logout',
     type: 'post',
-    response: _ => {
+    response: (req, res) => {
+      res.header('audience', '')
+      res.header('authorization', '')
+      res.header('group', '')
       return {
-        code: 20000,
+        status: 200,
         data: 'success'
       }
     }

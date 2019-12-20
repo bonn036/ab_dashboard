@@ -2,11 +2,13 @@ import Mock from 'mockjs'
 import { param2Obj } from '../src/utils'
 
 import user from './user'
-import table from './table'
+import enterprise from './enterprise'
+import product from './product'
 
 const mocks = [
   ...user,
-  ...table
+  ...enterprise,
+  ...product
 ]
 
 // for front mock
@@ -15,8 +17,10 @@ const mocks = [
 export function mockXHR() {
   // mock patch
   // https://github.com/nuysoft/Mock/issues/300
+
   Mock.XHR.prototype.proxy_send = Mock.XHR.prototype.send
-  Mock.XHR.prototype.send = function() {
+  Mock.XHR.prototype.send = function () {
+    console.log('mockXHR send')
     if (this.custom.xhr) {
       this.custom.xhr.withCredentials = this.withCredentials || false
 
@@ -28,7 +32,7 @@ export function mockXHR() {
   }
 
   function XHR2ExpressReqWrap(respond) {
-    return function(options) {
+    return function (options) {
       let result = null
       if (respond instanceof Function) {
         const { body, type, url } = options

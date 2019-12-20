@@ -6,8 +6,9 @@ const state = {
   aud: getAud(),
   auth: getAuthToken(),
   group: getGroup(),
-  name: '',
+  uname: '',
   avatar: '',
+  uscc: '',
   mobile: '',
   email: '',
   uid: '',
@@ -25,8 +26,8 @@ const mutations = {
   SET_GROUP: (state, group) => {
     state.group = group
   },
-  SET_NAME: (state, name) => {
-    state.name = name
+  SET_UNAME: (state, uname) => {
+    state.uname = uname
   },
   SET_MOBILE: (state, mobile) => {
     state.mobile = mobile
@@ -42,13 +43,39 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_USCC: (state, uscc) => {
+    state.uscc = uscc
   }
 }
 
 const actions = {
+
+  getInfo({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      getInfo().then(response => {
+        const { status, data } = response.data
+        if (!data) {
+          reject('Verification failed, please Login again.')
+        }
+        const { uid, username, avatar, mobile, email, cid, uscc, create_date } = data
+        commit('SET_UID', uid)
+        commit('SET_UNAME', username)
+        commit('SET_AVATAR', avatar)
+        commit('SET_USCC', uscc)
+        commit('SET_MOBILE', mobile)
+        commit('SET_EMAIL', email)
+        commit('SET_CID', cid)
+        
+        resolve(data)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
   // user login
-  login({ commit }, userInfo) {
-    const { username, password } = userInfo
+  login({ commit }, data) {
+    const { username, password } = data
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         commit('SET_AUD', response.headers["audience"])
@@ -58,28 +85,6 @@ const actions = {
         commit('SET_GROUP', response.headers["group"])
         setGroup(response.headers["group"])
         resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
-
-  // get user info
-  getInfo({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      getInfo().then(response => {
-        const { status, users } = response.data
-        if (!users || users.length == 0) {
-          reject('Verification failed, please Login again.')
-        }
-        const { uid, username, mobile, email, cid } = users[0]
-        commit('SET_UID', uid)
-        commit('SET_NAME', username)
-        // commit('SET_AVATAR', avatar)
-        commit('SET_MOBILE', mobile)
-        commit('SET_EMAIL', email)
-        commit('SET_CID', cid)
-        resolve(users)
       }).catch(error => {
         reject(error)
       })
