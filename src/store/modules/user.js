@@ -66,14 +66,14 @@ const actions = {
         commit('SET_MOBILE', mobile)
         commit('SET_EMAIL', email)
         commit('SET_CID', cid)
-        
+
         resolve(data)
       }).catch(error => {
         reject(error)
       })
     })
   },
-  // user login
+  
   login({ commit }, data) {
     const { username, password } = data
     return new Promise((resolve, reject) => {

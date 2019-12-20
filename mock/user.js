@@ -37,7 +37,7 @@ const userInfo = {
     mobile: '1369100119',
     email: '',
     cid: '110102200108012008',
-    group: 0,
+    group: 10,
     create_date: '2018-06-18',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     status: 1,
