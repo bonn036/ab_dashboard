@@ -51,7 +51,7 @@ const actions = {
   generateRoutes({ commit }, group) {
     return new Promise(resolve => {
       let accessedRoutes
-      if (group == 1) {
+      if (group == 36) {
       // if (group.includes('admin')) {
         accessedRoutes = asyncRoutes || []
       } else {

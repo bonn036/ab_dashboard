@@ -35,19 +35,16 @@ export const constantRoutes = [
     path: '/homepage',
     beforeEnter() { location.href = 'http://abhouse.xyz' }
   },
-
   {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
   {
     path: '/404',
     component: () => import('@/views/404'),
     hidden: true
   },
-
   {
     path: '/',
     component: Layout,
@@ -59,49 +56,42 @@ export const constantRoutes = [
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
-
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example'},
-    group: 1,
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form'}
-      }
-    ]
-  }
 ]
-
 /**
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+  {
+    path: '/enterprise',
+    component: Layout,
+    children: [{
+      path: 'enterprise',
+      name: 'Enterprise',
+      component: () => import('@/views/enterprise/index'),
+      meta: { title: '企业列表', icon: 'table', group: 1 }
+    }]
+  },
+  {
+    path: '/product',
+    component: Layout,
+    children: [{
+      path: 'product',
+      name: 'Product',
+      component: () => import('@/views/product/index'),
+      meta: { title: '产品列表', icon: 'product', group: 1 }
+    }]
+  },
+  {
+    path: '/project',
+    component: Layout,
+    children: [{
+      path: 'project',
+      name: 'project',
+      component: () => import('@/views/project/index'),
+      meta: { title: '项目列表', icon: 'project', group: 2 }
+    }]
+  },
   {
     path: '/nested',
     component: Layout,
@@ -110,14 +100,14 @@ export const asyncRoutes = [
     meta: {
       title: 'Nested',
       icon: 'nested',
-      group: '1'
+      group: 2
     },
     children: [
       {
         path: 'menu1',
         component: () => import('@/views/nested/menu1/index'), // Parent router-view
         name: 'Menu1',
-        meta: { title: 'Menu1' },
+        meta: { title: 'Menu1' , group: '100' },
         children: [
           {
             path: 'menu1-1',
@@ -160,18 +150,16 @@ export const asyncRoutes = [
       }
     ]
   },
-
   {
     path: 'external-link',
     component: Layout,
     children: [
       {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        path: 'http://abhouse.xyz',
+        meta: { title: 'External Link', icon: 'link', group: 2 }
       }
     ]
   },
-
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
