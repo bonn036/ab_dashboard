@@ -58,7 +58,7 @@ const actions = {
         if (!data) {
           reject('Verification failed, please Login again.')
         }
-        const { uid, username, avatar, mobile, email, cid, uscc, create_date } = data
+        const { uid, username, avatar, mobile, email, cid, uscc, group, create_date } = data
         commit('SET_UID', uid)
         commit('SET_UNAME', username)
         commit('SET_AVATAR', avatar)
@@ -66,6 +66,7 @@ const actions = {
         commit('SET_MOBILE', mobile)
         commit('SET_EMAIL', email)
         commit('SET_CID', cid)
+        commit('SET_GROUP', group)
 
         resolve(data)
       }).catch(error => {
@@ -73,7 +74,7 @@ const actions = {
       })
     })
   },
-  
+
   login({ commit }, data) {
     const { username, password } = data
     return new Promise((resolve, reject) => {
@@ -82,8 +83,8 @@ const actions = {
         setAud(response.headers["audience"])
         commit('SET_AUTH', response.headers["authorization"])
         setAuthToken(response.headers["authorization"])
-        commit('SET_GROUP', response.headers["group"])
-        setGroup(response.headers["group"])
+        // commit('SET_GROUP', response.headers["group"])
+        // setGroup(response.headers["group"])
         resolve()
       }).catch(error => {
         reject(error)
