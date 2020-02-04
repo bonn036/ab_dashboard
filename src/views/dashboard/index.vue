@@ -6,6 +6,7 @@
     <div class="dashboard-text">email: {{ email }}</div>
     <div class="dashboard-text">group: {{ group }}</div>
     <div class="dashboard-text">cid: {{ cid }}</div>
+    <div class="dashboard-text">create datetime: {{ cdatetime }}</div>
     <!-- <div class="dashboard-text">roles: <span v-for="role in roles" :key="role">{{ role }}</span></div> -->
   </div>
 </template>
@@ -23,6 +24,7 @@ export default {
       'email',
       'group',
       'cid',
+      'cdatetime',
     ])
   }
 }

@@ -2,13 +2,14 @@ const chokidar = require('chokidar')
 const bodyParser = require('body-parser')
 const chalk = require('chalk')
 const path = require('path')
+
 const mockDir = path.join(process.cwd(), 'mock')
 
 function registerRoutes(app) {
   let mockLastIndex
   const { default: mocks } = require('./index.js')
-  for (const i of mocks) {
-    app[i.type](i.url, i.response)
+  for (const mock of mocks) {
+    app[mock.type](mock.url, mock.response)
     mockLastIndex = app._router.stack.length
   }
   const mockRoutesLength = Object.keys(mocks).length
@@ -29,6 +30,7 @@ function unregisterRoutes() {
 module.exports = app => {
   // es6 polyfill
   require('@babel/register')
+
   // parse app.body
   // https://expressjs.com/en/4x/api.html#req.body
   app.use(bodyParser.json())

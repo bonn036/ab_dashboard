@@ -52,7 +52,6 @@ const actions = {
     return new Promise(resolve => {
       let accessedRoutes
       if (group == 36) {
-      // if (group.includes('admin')) {
         accessedRoutes = asyncRoutes || []
       } else {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, group)

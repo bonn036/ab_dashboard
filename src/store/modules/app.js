@@ -6,7 +6,6 @@ const state = {
     withoutAnimation: false
   },
   device: 'desktop',
-  show: Cookies.get('showStatus')
 }
 
 const mutations = {
@@ -27,9 +26,6 @@ const mutations = {
   TOGGLE_DEVICE: (state, device) => {
     state.device = device
   },
-  TOGGLE_SHOW: (state, show) => {
-    state.show = show
-  }
 }
 
 const actions = {
@@ -42,9 +38,6 @@ const actions = {
   toggleDevice({ commit }, device) {
     commit('TOGGLE_DEVICE', device)
   },
-  toggleShow({ commit }, show) {
-    commit('TOGGLE_SHOW', show)
-  }
 }
 
 export default {

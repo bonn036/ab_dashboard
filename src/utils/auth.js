@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 
 const AudKey = 'aud'
 const AuthKey = 'auth'
-const GroupKey = 'group'
+// const GroupKey = 'group'
 
 //Audience
 export function getAud() {
@@ -31,14 +31,14 @@ export function removeAuthToken() {
 }
 
 //Group
-export function getGroup() {
-  return Cookies.get(GroupKey)
-}
+// export function getGroup() {
+//   return Cookies.get(GroupKey)
+// }
 
-export function setGroup(group) {
-  return Cookies.set(GroupKey, group)
-}
+// export function setGroup(group) {
+//   return Cookies.set(GroupKey, group)
+// }
 
-export function removeGroup() {
-  return Cookies.remove(GroupKey)
-}
+// export function removeGroup() {
+//   return Cookies.remove(GroupKey)
+// }

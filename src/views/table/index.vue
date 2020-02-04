@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { getList } from '@/api/product'
+import { getList } from '@/api/enterprise'
 
 export default {
   filters: {

@@ -1,11 +1,11 @@
 import { login, logout, getInfo } from '@/api/user'
-import { getAud, setAud, removeAud, getAuthToken, setAuthToken, removeAuthToken, getGroup, setGroup, removeGroup} from '@/utils/auth'
+import { getAud, setAud, removeAud, getAuthToken, setAuthToken, removeAuthToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const state = {
   aud: getAud(),
   auth: getAuthToken(),
-  group: getGroup(),
+  group: '',
   uname: '',
   avatar: '',
   uscc: '',
@@ -26,20 +26,20 @@ const mutations = {
   SET_GROUP: (state, group) => {
     state.group = group
   },
+  SET_UID: (state, uid) => {
+    state.uid = uid
+  },
   SET_UNAME: (state, uname) => {
     state.uname = uname
+  },
+  SET_CID: (state, cid) => {
+    state.cid = cid
   },
   SET_MOBILE: (state, mobile) => {
     state.mobile = mobile
   },
   SET_EMAIL: (state, email) => {
     state.email = email
-  },
-  SET_UID: (state, uid) => {
-    state.uid = uid
-  },
-  SET_CID: (state, cid) => {
-    state.cid = cid
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
@@ -102,7 +102,7 @@ const actions = {
         // commit('SET_ROLES', [])
         removeAud()
         removeAuthToken()
-        removeGroup()
+        // removeGroup()
 
         resetRouter()
         resolve()
@@ -120,7 +120,7 @@ const actions = {
       commit('SET_GROUP', '')
       removeAud()
       removeAuthToken()
-      removeGroup()
+      // removeGroup()
       resolve()
     })
   }

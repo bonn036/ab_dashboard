@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
-import { getAud, getAuthToken, getGroup } from '@/utils/auth'
+import { getAud, getAuthToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
@@ -20,9 +20,9 @@ service.interceptors.request.use(
     if (store.getters.auth) {
       config.headers['Authorization'] = getAuthToken()
     }
-    if (store.getters.group) {
-      config.headers['Group'] = getGroup()
-    }
+    // if (store.getters.group) {
+    //   config.headers['Group'] = getGroup()
+    // }
     return config
   },
   error => {
