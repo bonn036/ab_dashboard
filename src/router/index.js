@@ -155,7 +155,7 @@ export const asyncRoutes = [
     component: Layout,
     children: [
       {
-        path: 'http://abhouse.xyz',
+        path: 'https://abhouse.xyz',
         meta: { title: 'External Link', icon: 'link', group: 2 }
       }
     ]
