@@ -7,3 +7,6 @@ npm run preview
 npm run preview -- --report
 npm run lint
 npm run lint -- --fix
+
+yarn upgrade-interactive --latest  then a
+yarn upgrade package@version

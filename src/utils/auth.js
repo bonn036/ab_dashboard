@@ -6,7 +6,8 @@ const AuthKey = 'auth'
 
 //Audience
 export function getAud() {
-  return Cookies.get(AudKey)
+  var aud = Cookies.get(AudKey)
+  return aud == null || aud == undefined ? "" : aud
 }
 
 export function setAud(aud) {
@@ -19,7 +20,8 @@ export function removeAud() {
 
 //AuthToken
 export function getAuthToken() {
-  return Cookies.get(AuthKey)
+  var auth = Cookies.get(AuthKey)
+  return auth == null || auth == undefined ? "" : auth
 }
 
 export function setAuthToken(token) {
