@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0af8ba"],{"0f7e":function(a,c,e){"use strict";e.r(c);var t=function(){var a=this,c=a.$createElement,e=a._self._c||c;return e("div",{staticClass:"page-container"},[e("el-card",{staticClass:"basic-card"})],1)},s=[],n=e("5530"),u=e("2f62"),r={name:"CRM",computed:Object(n["a"])({},Object(u["b"])({uscc:"user/uscc"}))},i=r,l=e("2877"),o=Object(l["a"])(i,t,s,!1,null,"3f4aa284",null);c["default"]=o.exports}}]);
+//# sourceMappingURL=chunk-2d0af8ba.9d5a24a8.js.map
